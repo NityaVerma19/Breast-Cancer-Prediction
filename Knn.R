@@ -44,14 +44,13 @@ summary(data$smoothness_mean)
 #e) min-max normalization
 
 #FORMULA: (x - min of x)/ (max of x - min of x)
-
 normalized_data = function(data) {
   
   scaled_data = data
   
-  for (i in 1:ncol(main_data)){   #iterating over the columns (there are 30 columns)
-    x_min = min(main_data[,i])  #all the rows in each column
-    x_max = max(main_data[,i])
+  for (i in 3:ncol(data)){   #iterating over the columns (there are 30 columns)
+    x_min = min(data[,i])  #all the rows in each column
+    x_max = max(data[,i])
   
   if (x_max - x_min != 0){
     scaled_data[,i] = (data[,i] - x_min)/(x_max-x_min)
