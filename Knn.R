@@ -69,7 +69,20 @@ normalized_data =normalized_data(data)
 
 normal_train = normalized_data[1:469, ]
 
-normal_test <- normalized_data[470:569, ]
+normal_test  = normalized_data[470:569, ]
+
+normal_train_features = normal_train[, 3:32]
+normal_test_features = normal_test[, 3:32]
+
+#g) build the model on normalized data
+
+knn_model_normalized = knn(normal_train_features, normal_test_features, cl = normal_train$diagnosis, k = 21)
+knn_model_normalized
+
+confusion_matrix = table(actual = normal_test$diagnosis,predict =  knn_model_normalized)
+
+#Accuracy = (TP+TN)/(TP+TN_FP+FN)
+accuracy = sum(diag(confusion_matrix))/sum(confusion_matrix)
+accuracy
 
 
-#g) 
