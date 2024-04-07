@@ -63,4 +63,13 @@ normalized_data = function(data) {
   
 }
 
-normalized_data(data)
+normalized_data =normalized_data(data)
+
+#f) splitting into train and test
+
+normal_train = normalized_data[1:469, ]
+
+normal_test <- normalized_data[470:569, ]
+
+
+#g) 
