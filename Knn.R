@@ -1,8 +1,7 @@
 #-----------------------------ASSINGMENT----------------------------
 
 #a)
-data = read.csv("C:\\Users\\DELL\\Downloads\\Breast Cancer Wisconsin.csv")
-data
+data = read.csv("C:\\Users\\DELL\\OneDrive\\Desktop\\Desktop\\College\\DATA SCIENCE\\R\\RDS\\Breast Cancer Prediction\\Breast Cancer Wisconsin.csv")
 dim(data)  #dimension
 str(data)  #data type of each variable
 
@@ -12,25 +11,28 @@ str(data)  #data type of each variable
 set.seed(123)
 test_size = sample(nrow(data), 100)
 
-data_test = data[test_size, ]
+data_test = data[test_size,]
 
 data_train = data[-test_size, ]
+
+
+train_features = data_train[, 3:32]
+test_features = data_test[, 3:32]
 
 #c) 
 
 library(class)
 #scaling the data
-train_scale = scale(data_train[,3:32])
-test_scale = scale(data_test[, 3:32])
 
-knn_model = knn(train_scale, test_scale, cl = data_train$diagnosis, k = 21)
+
+knn_model = knn(train_features, test_features, cl = data_train$diagnosis, k = 21)
 knn_model
 
 confusion_matrix = table(actual = data_test$diagnosis,predict =  knn_model)
 
 #Accuracy = (TP+TN)/(TP+TN_FP+FN)
 accuracy = sum(diag(confusion_matrix))/sum(confusion_matrix)
-
+accuracy
 
 #d) summmarize and note the difference
 
@@ -85,4 +87,19 @@ confusion_matrix = table(actual = normal_test$diagnosis,predict =  knn_model_nor
 accuracy = sum(diag(confusion_matrix))/sum(confusion_matrix)
 accuracy
 
+
+
+#h) scaling the data according to z-score standardization
+
+train_scale = scale(data_train[,3:32])
+test_scale = scale(data_test[, 3:32])
+
+knn_model_scaled = knn(train_scale, test_scale, cl = data_train$diagnosis, k = 21)
+knn_model_scaled
+
+confusion_matrix = table(actual = data_test$diagnosis,predict =  knn_model_scaled)
+
+#Accuracy = (TP+TN)/(TP+TN_FP+FN)
+accuracy = sum(diag(confusion_matrix))/sum(confusion_matrix)
+accuracy
 
