@@ -30,3 +30,37 @@ confusion_matrix = table(actual = data_test$diagnosis,predict =  knn_model)
 
 #Accuracy = (TP+TN)/(TP+TN_FP+FN)
 accuracy = sum(diag(confusion_matrix))/sum(confusion_matrix)
+
+
+#d) summmarize and note the difference
+
+summary(data$radius_mean)
+summary(data$area_mean)
+summary(data$smoothness_mean)
+        #The units of measurement are too vast
+
+#e) min-max normalization
+
+#FORMULA: (x - min of x)/ (max of x - min of x)
+
+normalized_data = function(data) {
+  
+  scaled_data = data
+  
+  for (i in 1:ncol(main_data)){   #iterating over the columns (there are 30 columns)
+    x_min = min(main_data[,i])  #all the rows in each column
+    x_max = max(main_data[,i])
+  
+  if (x_max - x_min != 0){
+    scaled_data[,i] = (data[,i] - x_min)/(x_max-x_min)
+  }
+  else {
+    scaled_data[,i] = 0
+  }
+    
+    return (scaled_data)
+  }
+  
+}
+
+normalized_data(data)
